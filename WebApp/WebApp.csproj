@@ -38,42 +38,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <Content Include="web.config" />
+    <Content Include="Wisdrisoft\1.创建一个基本的地图_缓存图层.html" />
+    <Content Include="Wisdrisoft\2.检测设备弹出仪表信息.html" />
+    <Content Include="Wisdrisoft\2.自定义弹出控件_检测设备.html" />
+    <Content Include="Wisdrisoft\3.视频设备定时刷新.html" />
+    <Content Include="Wisdrisoft\4.测距测面积.html" />
+    <Content Include="Wisdrisoft\2.自定义弹出控件_视频.html" />
+    <Content Include="Wisdrisoft\myModules\InfoWindow.css" />
+    <Content Include="Wisdrisoft\myModules\InfoWindow.js" />
+    <Content Include="Wisdrisoft\7.StreamLayer需要在线.html" />
+    <Content Include="Wisdrisoft\6.半径范围内查询.html" />
+    <Content Include="Wisdrisoft\5.根据设备名称搜索.html" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
     </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
     </None>
+    <None Include="Wisdrisoft\Readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
-    <Content Include="Wisdrisoft\index.html" />
-    <Content Include="Wisdrisoft\Script\init.js" />
+    <Content Include="Wisdrisoft\0.直接使用基础的地图.html" />
+    <Content Include="Wisdrisoft\1.创建一个基本的地图_动态图层.html" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FrameWork\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

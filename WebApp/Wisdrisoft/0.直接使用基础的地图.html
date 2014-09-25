@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title>Simple Map</title>
+    <link rel="stylesheet" href="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css">
+    <style>
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #FFF;
+            overflow: hidden;
+            font-family: "Trebuchet MS";
+        }
+    </style>
+    <script src="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
+    <script>
+        // 获取在线地图的方式
+        var map;
+        require(["esri/map", "dojo/domReady!"], function (Map) {
+            map = new Map("map", {
+                basemap: "osm", // "satellite", "hybrid", "topo", "gray", "oceans", "osm", "national-geographic".
+                center: [116.4035, 39.915], // longitude, latitude
+                zoom: 13
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="map"></div>
+</body>
+</html>

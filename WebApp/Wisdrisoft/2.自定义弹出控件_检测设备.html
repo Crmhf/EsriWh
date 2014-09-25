@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--The viewport meta tag is used to improve the presentation and behavior
+    of the samples on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>2.自定义弹出控件_检测设备</title>
+      <link rel="stylesheet" href="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css">
+    <link rel="stylesheet" href="myModules/InfoWindow.css">
+    <style>
+      html, body, #mapDiv { height: 100%; width: 100%; margin: 0; padding: 0; } 
+  
+    </style>
+
+    <script>var dojoConfig = {
+        parseOnLoad:true,
+        packages: [{
+          "name": "myModules",
+          "location": location.pathname.replace(/\/[^/]+$/, "") + "/myModules"
+        }]
+      };
+    </script>
+      <script src="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
+    <script>
+
+    require([
+      "dojo/dom",
+      "dojo/dom-construct",
+      "esri/map",
+      "esri/layers/ArcGISTiledMapServiceLayer",
+      "myModules/InfoWindow",
+      "esri/layers/FeatureLayer",
+      "esri/InfoTemplate",
+      "dojo/string",
+      "dojo/domReady!"
+    ], function(
+       dom,
+       domConstruct,
+       Map,
+       ArcGISTiledMapServiceLayer,
+       InfoWindow,
+       FeatureLayer,
+       InfoTemplate,
+       string
+    ) {
+      //create the custom info window specifying any input options
+       var infoWindow = new  InfoWindow({
+          domNode: domConstruct.create("div", null, dom.byId("mapDiv"))
+       });
+
+      //create the map and specify the custom info window as the info window that will
+      //be used by the map 
+
+      var map = new Map("mapDiv", {
+          center: [114.41, 30.78],
+          zoom: 4,
+          infoWindow: infoWindow
+      });
+      
+
+
+      var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://localhost:6080/arcgis/rest/services/hbtest/MapServer", {
+          "opacity": 0.5
+      });
+      map.addLayer(tiledMapServiceLayer);
+         
+      //define the info template that is used to display the popup content. 
+      var template = new InfoTemplate();
+      template.setTitle("<b>${Mac_Name}</b>");
+      template.setContent("设备名称：${Mac_Name}</br>原本名称：${Name_CHN}</br>拼音名称：${Name_PY}</br>");
+      //template.setContent(getTextContent);
+
+      //create the feature layer (street trees of San Francisco)
+      var featureLayer = new FeatureLayer("http://esri-705.arcgiscloud.com:6080/arcgis/rest/services/hbtest_mac/MapServer/0", {
+        infoTemplate: template,
+        outFields: ["*"]
+      });
+      map.addLayer(featureLayer);
+
+      //resize the info window 
+      map.infoWindow.resize(180, 75);
+        /*
+        Address: " "
+        Code: "421202"
+        Name_CHN: "栗林咀桥"
+        Name_ENG: "Lilinju Bridge"
+        Name_PY: "LiLinJu Qiao"
+        OBJECTID: 209
+        Telephone: " "
+        Type: "190307"*/
+        
+    });
+    </script>
+  </head>
+  <body>
+    <div id="mapDiv"></div>
+  </body>
+</html>
