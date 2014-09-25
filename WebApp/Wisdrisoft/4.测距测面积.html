@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples
+    on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>测距测面积</title>
+    <link rel="stylesheet" href="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/dojo/dijit/themes/claro/claro.css"/>
+    <link rel="stylesheet" href="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css" />
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-color: #FFF;
+            overflow: hidden;
+            font-family: "Trebuchet MS";
+        }
+
+        #map {
+            border: solid 2px #808775;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            margin: 5px;
+            padding: 0px;
+        }
+
+        #titlePane {
+            width: 240px;
+        }
+
+        .claro .dijitTitlePaneTitle {
+            background: #fff;
+            font-weight: 600;
+            border: none;
+            border-bottom: solid 1px #29201A;
+            border-top: solid 1px #29201A;
+        }
+
+        .claro .dijitTitlePaneTitleHover {
+            background: #eee;
+        }
+
+        .claro .dijitTitlePaneTitleActive {
+            background: #808775;
+        }
+
+        .claro .dijitTitlePaneContentOuter {
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+        }
+    </style>
+    <script src="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
+    <script>
+        var map;
+        require([
+            "dojo/dom",
+            "esri/Color",
+            "dojo/keys",
+            "dojo/parser",
+
+            "esri/config",
+            "esri/sniff",
+            "esri/map",
+            "esri/layers/ArcGISTiledMapServiceLayer",
+            "esri/SnappingManager",
+            "esri/dijit/Measurement",
+            "esri/units",
+            "esri/layers/FeatureLayer",
+            "esri/renderers/SimpleRenderer",
+            "esri/tasks/GeometryService",
+            "esri/symbols/SimpleLineSymbol",
+            "esri/symbols/SimpleFillSymbol",
+
+            "esri/dijit/Scalebar",
+            "dijit/layout/BorderContainer",
+            "dijit/layout/ContentPane",
+            "dijit/TitlePane",
+            "dijit/form/CheckBox",
+            "dojo/domReady!"
+        ], function (
+            dom, Color, keys, parser,
+            esriConfig, has, Map, ArcGISTiledMapServiceLayer, SnappingManager, Measurement, Units, FeatureLayer, SimpleRenderer, GeometryService, SimpleLineSymbol, SimpleFillSymbol
+          ) {
+            parser.parse();
+            //This sample may require a proxy page to handle communications with the ArcGIS Server services. You will need to
+            //replace the url below with the location of a proxy on your machine. See the 'Using the proxy page' help topic
+            //for details on setting up a proxy page.
+            esriConfig.defaults.io.proxyUrl = "/proxy";
+            esriConfig.defaults.io.alwaysUseProxy = false;
+
+            // 调用ArcGIS for Server的几何服务
+            esriConfig.defaults.geometryService = new GeometryService("http://esri-705.arcgiscloud.com:6080/arcgis/rest/services/Utilities/Geometry/GeometryServer");
+
+            
+
+            map = new Map("map", {
+                center: [114.41, 30.78],
+                zoom: 4
+            });
+
+            var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://localhost:6080/arcgis/rest/services/hbtest/MapServer", {
+                "opacity": 0.5
+            });
+            map.addLayer(tiledMapServiceLayer);
+
+            var sfs = new SimpleFillSymbol(
+              "solid",
+              new SimpleLineSymbol("solid", new Color([195, 176, 23]), 2),
+              null
+            );
+
+            var parcelsLayer = new FeatureLayer("http://esri-705.arcgiscloud.com:6080/arcgis/rest/services/hbtest/MapServer/0", {
+                mode: FeatureLayer.MODE_ONDEMAND,
+                outFields: ["*"]
+            });
+            parcelsLayer.setRenderer(new SimpleRenderer(sfs));
+            map.addLayers([parcelsLayer]);
+
+            var measurement = new Measurement({
+                map: map,
+                defaultAreaUnit: Units.SQUARE_KILOMETERS,
+                defaultLengthUnit: Units.KILOMETERS
+            }, dom.byId("measurementDiv"));
+            measurement.startup();
+        });
+    </script>
+</head>
+
+<body class="claro">
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false"
+         style="width:100%; height:100%;">
+        <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+            <div style="position:absolute; right:20px; top:10px; z-Index:999;">
+                <div id="titlePane" data-dojo-type="dijit/TitlePane" data-dojo-props="title:'测量', closable:'false', open:'true'">
+                    <div id="measurementDiv"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
