@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Temp\js\jsapi_vsdoc12_v38.js" />
+    <Content Include="Temp\temp1.html" />
+    <Content Include="Temp\Try_code.html" />
     <Content Include="web.config" />
     <Content Include="Wisdrisoft\1.创建一个基本的地图_缓存图层.html" />
     <Content Include="Wisdrisoft\2.检测设备弹出仪表信息.html" />
@@ -50,6 +53,7 @@
     <Content Include="Wisdrisoft\7.StreamLayer需要在线.html" />
     <Content Include="Wisdrisoft\6.半径范围内查询.html" />
     <Content Include="Wisdrisoft\5.根据设备名称搜索.html" />
+    <Content Include="Temp\Readme.md" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -64,6 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Temp\css\" />
+    <Folder Include="Temp\images\" />
+    <Folder Include="Temp\js\framework\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

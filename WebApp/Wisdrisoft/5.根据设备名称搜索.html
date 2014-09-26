@@ -31,7 +31,7 @@
                 zoom:4
             });
 
-            var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://localhost:6080/arcgis/rest/services/hbtest/MapServer", {
+            var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://esri-705.arcgiscloud.com:6080/arcgis/rest/services/hbtest/MapServer", {
                 "opacity": 0.5
             });
             map.addLayer(tiledMapServiceLayer);
@@ -56,19 +56,12 @@
                 var resultItems = [];
                 var resultCount = results.features.length;
                 for (var i = 0; i < resultCount; i++) {
-                    /*
-                    var featureAttributes = results.features[i].attributes;
-                    var pois = results.features[i].geometry;
-                    for (var attr in featureAttributes) {
-                        resultItems.push("<b>" + attr + ":</b>  " + featureAttributes[attr] + "<br>");              
-                    }
-                    */
                  
                     resultItems.push("<b>Object:</b>  "+ results.features[i].attributes.OBJECTID + "<br>");
                     resultItems.push("<b>设备名称:</b> " + results.features[i].attributes.VIDEO_NAME + "<br>");
-                    var x = results.features[i].geometry.getLongitude();
-                    var y = results.features[i].geometry.getLatitude();                   
-                    resultItems.push("<a href='#' onclick=getPositionById('" + x + "','" + y + "')>定位</a><hr></br>");
+                    var lon = results.features[i].geometry.getLongitude();
+                    var lat = results.features[i].geometry.getLatitude();                   
+                    resultItems.push("<a href='#' onclick=getPositionById('" + lon + "','" + lat + "')>定位</a><hr></br>");
 
                 }
                 dom.byId("info").innerHTML = resultItems.join("");
@@ -79,8 +72,8 @@
         });
 
         // 定位查询
-        function getPositionById(x, y) {
-            var myPoint = new esri.geometry.Point(x, y);
+        function getPositionById(lon, lat) {
+            var myPoint = new esri.geometry.Point(lon, lat);
             map.centerAndZoom(myPoint, 7);
 
         }

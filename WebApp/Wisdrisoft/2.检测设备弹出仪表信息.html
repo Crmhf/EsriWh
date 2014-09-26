@@ -111,7 +111,8 @@
             gauge.startup();
 
             // set up mouse over highlighting
-            var hGraphics = new esri.layers.GraphicsLayer({ "id": "highlights" });
+          //  var hGraphics = new esri.layers.GraphicsLayer({ "id": "highlights" });
+            var hGraphics = new esri.layers.GraphicsLayer();
             map.addLayer(hGraphics);
 
             var highlight = new esri.symbol.SimpleMarkerSymbol()
