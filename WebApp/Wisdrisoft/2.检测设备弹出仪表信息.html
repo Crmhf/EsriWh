@@ -6,8 +6,8 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title></title>
 
-    <link rel="stylesheet" href="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/dojo/dijit/themes/tundra/tundra.css">
-    <link rel="stylesheet" href="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css">
+    <link rel="stylesheet" href="http://esri705.giscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/dojo/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="http://esri705.giscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css">
     <style>
         html, body {
             height: 100%;
@@ -51,7 +51,7 @@
     </style>
 
     <script>var dojoConfig = { parseOnLoad: true };</script>
-    <script src="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
+    <script src="http://esri705.giscloud.com:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
     <script>
 
         var map;
@@ -72,7 +72,7 @@
             FeatureLayer) {
             map = new Map("mapDiv", {
                 center: [114.41, 30.78],
-                zoom: 3
+                zoom: 10
             });
             //Takes a URL to a cached map service.
             var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://localhost:6080/arcgis/rest/services/hbtest/MapServer", {
@@ -81,7 +81,7 @@
             map.addLayer(tiledMapServiceLayer);
 
             // add the states layer as a feature layer
-            var featuresUrl = "http://esri-705.arcgiscloud.com:6080/arcgis/rest/services/hbtest_mac/MapServer/0";
+            var featuresUrl = "http://esri705.giscloud.com:6080/arcgis/rest/services/hbtest_mac/MapServer/0";
             var fl = new esri.layers.FeatureLayer(featuresUrl, {
                 "id": "mac",
                 "mode": esri.layers.FeatureLayer.MODE_ONDEMAND,

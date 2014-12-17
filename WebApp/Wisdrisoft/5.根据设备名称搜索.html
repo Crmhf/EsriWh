@@ -6,13 +6,13 @@
       on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>根据设备名称进行搜索</title>
-    <link rel="stylesheet" href="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css" />
+    <link rel="stylesheet" href="http://esri705.giscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css" />
     <style>
         html, body, #mapDiv {padding: 0; margin: 0;height: 100%;}
         #searchPane {position:absolute;top:20px;right:0;width:380px;height:800px;background-color:#666;overflow-y:auto}
         #info {padding: 5px;margin: 5px;background-color: #eee;font-size:10px;}
     </style>
-    <script src="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
+    <script src="http://esri705.giscloud.com:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
     <script>
         var map;
 
@@ -31,14 +31,14 @@
                 zoom:4
             });
 
-            var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://esri-705.arcgiscloud.com:6080/arcgis/rest/services/hbtest/MapServer", {
+            var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://esri705.giscloud.com:6080/arcgis/rest/services/hbtest/MapServer", {
                 "opacity": 0.5
             });
             map.addLayer(tiledMapServiceLayer);
 
 
 
-            var queryTask = new QueryTask("http://esri-705.arcgiscloud.com:6080/arcgis/rest/services/hbtest_video/MapServer/0");
+            var queryTask = new QueryTask("http://esri705.giscloud.com:6080/arcgis/rest/services/hbtest_video/MapServer/0");
             var query = new Query();
             // 返回空间信息
             query.returnGeometry = true;

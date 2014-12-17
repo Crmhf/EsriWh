@@ -6,7 +6,7 @@
     of the samples on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>视频设备定时刷新</title>
-      <link rel="stylesheet" href="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css">
+      <link rel="stylesheet" href="http://esri705.giscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css">
     <link rel="stylesheet" href="myModules/InfoWindow.css">
     <style>
       html, body, #mapDiv { height: 100%; width: 100%; margin: 0; padding: 0; } 
@@ -21,7 +21,7 @@
         }]
       };
     </script>
-      <script src="http://esri-705.arcgiscloud.com:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
+      <script src="http://esri705.giscloud.com:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
     <script>
 
     require([
@@ -70,7 +70,7 @@
       //template.setContent(getTextContent);
 
       //create the feature layer (street trees of San Francisco)
-      var featureLayer = new FeatureLayer("http://esri-705.arcgiscloud.com:6080/arcgis/rest/services/hbtest_video/MapServer/0", {
+      var featureLayer = new FeatureLayer("http://esri705.giscloud.com:6080/arcgis/rest/services/hbtest_video/MapServer/0", {
         infoTemplate: template,
         outFields: ["*"]
       });
