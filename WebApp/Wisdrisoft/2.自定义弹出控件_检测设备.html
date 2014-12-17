@@ -60,19 +60,19 @@
       
 
 
-      var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://localhost:6080/arcgis/rest/services/hbtest/MapServer", {
+      var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://localhost:6080/arcgis/rest/services/hb20141217/MapServer", {
           "opacity": 0.5
       });
       map.addLayer(tiledMapServiceLayer);
          
       //define the info template that is used to display the popup content. 
       var template = new InfoTemplate();
-      template.setTitle("<b>${Mac_Name}</b>");
-      template.setContent("OBJECTID:${OBJECTID}</br>设备名称：${Mac_Name}</br>原本名称：${Name_CHN}</br>拼音名称：${Name_PY}</br>");
+      template.setTitle("<b>${Video_Name}</b>");
+      template.setContent("OBJECTID:${OBJECTID}</br>设备名称：${Video_Name}</br>原本名称：${Name_CHN}</br>拼音名称：${Name_PY}</br>");
       //template.setContent(getTextContent);
 
       //create the feature layer (street trees of San Francisco)
-      var featureLayer = new FeatureLayer("http://esri705.giscloud.com:6080/arcgis/rest/services/hbtest_mac/MapServer/0", {
+      var featureLayer = new FeatureLayer("http://esri705.giscloud.com:6080/arcgis/rest/services/hbv20141217/MapServer/0", {
         infoTemplate: template,
         outFields: ["*"]
       });
