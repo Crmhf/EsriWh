@@ -6,8 +6,8 @@
     on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>测距测面积</title>
-    <link rel="stylesheet" href="http://esri705.giscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/dojo/dijit/themes/claro/claro.css"/>
-    <link rel="stylesheet" href="http://esri705.giscloud.com:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css" />
+    <link rel="stylesheet" href="http://esri705.gis.local:8080/arcgis_js_api/library/3.10/3.10/js/dojo/dijit/themes/claro/claro.css"/>
+    <link rel="stylesheet" href="http://esri705.gis.local:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css" />
     <style>
         html, body {
             height: 100%;
@@ -56,7 +56,7 @@
             border-left: none;
         }
     </style>
-    <script src="http://esri705.giscloud.com:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
+    <script src="http://esri705.gis.local:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
     <script>
         var map;
         require([
@@ -96,7 +96,7 @@
             esriConfig.defaults.io.alwaysUseProxy = false;
 
             // 调用ArcGIS for Server的几何服务
-            esriConfig.defaults.geometryService = new GeometryService("http://esri705.giscloud.com:6080/arcgis/rest/services/Utilities/Geometry/GeometryServer");
+            esriConfig.defaults.geometryService = new GeometryService("http://esri705.gis.local:6080/arcgis/rest/services/Utilities/Geometry/GeometryServer");
 
             
 
@@ -105,7 +105,7 @@
                 zoom: 10
             });
 
-            var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://esri705.giscloud.com:6080/arcgis/rest/services/hbtest/MapServer", {
+            var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://esri705.gis.local:6080/arcgis/rest/services/hbtest_tiled/MapServer", {
                 "opacity": 0.5
             });
             map.addLayer(tiledMapServiceLayer);
@@ -116,7 +116,7 @@
               null
             );
 
-            var parcelsLayer = new FeatureLayer("http://esri705.giscloud.com:6080/arcgis/rest/services/hbtest/MapServer/0", {
+            var parcelsLayer = new FeatureLayer("http://esri705.gis.local:6080/arcgis/rest/services/hbtest_tiled/MapServer/0", {
                 mode: FeatureLayer.MODE_ONDEMAND,
                 outFields: ["*"]
             });
