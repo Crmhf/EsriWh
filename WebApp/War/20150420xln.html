@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--The viewport meta tag is used to improve the presentation and behavior
+    of the samples on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>xln</title>
+      <link rel="stylesheet" href="http://esri705.gis.local:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css">
+    <style>
+      html, body, #mapDiv { height: 100%; width: 100%; margin: 0; padding: 0; } 
+  
+    </style>
+
+    <script>var dojoConfig = {
+        parseOnLoad:true,
+        packages: [{
+          "name": "myModules",
+          "location": location.pathname.replace(/\/[^/]+$/, "") + "/myModules"
+        }]
+      };
+    </script>
+      <script src="http://esri705.gis.local:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
+    <script>
+
+    require([
+      "dojo/dom",
+      "dojo/dom-construct",
+      "esri/map",
+      "esri/layers/ArcGISTiledMapServiceLayer",
+      "myModules/InfoWindow",
+      "esri/layers/FeatureLayer",
+      "esri/InfoTemplate",
+      "dojo/string",
+      "dojo/domReady!"
+    ], function(
+       dom,
+       domConstruct,
+       Map,
+       ArcGISTiledMapServiceLayer,
+       InfoWindow,
+       FeatureLayer,
+       InfoTemplate,
+       string
+    ) {
+      //create the custom info window specifying any input options
+       var infoWindow = new  InfoWindow({
+          domNode: domConstruct.create("div", null, dom.byId("mapDiv"))
+       });
+
+      //create the map and specify the custom info window as the info window that will
+      //be used by the map 
+
+      var map = new Map("mapDiv", {
+        center: [111.441, 30.591],
+        zoom:15,
+        infoWindow: infoWindow
+      });
+
+      var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer", {
+          "opacity": 0.5
+      });
+      map.addLayer(tiledMapServiceLayer);
+         
+
+
+      //create the feature layer (street trees of San Francisco)
+      var featureLayer = new FeatureLayer("http://192.168.0.108:6080/arcgis/rest/services/highWay/highwayRoute/MapServer/0", {
+
+        outFields: ["*"]
+      });
+      map.addLayer(featureLayer);
+        
+    });
+    </script>
+  </head>
+  <body>
+    <div id="mapDiv"></div>
+  </body>
+</html>

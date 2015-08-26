@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>1.创建一个基本的地图_动态图层.html</title>
+    <link rel="stylesheet" href="http://esri705.gis.local:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css" />
+    <style>
+        html, body, #mapDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+    <script src="http://esri705.gis.local:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
+    <script>
+        var map;
+
+        require([
+          "esri/map",
+          "esri/layers/ArcGISDynamicMapServiceLayer",
+          "esri/layers/ImageParameters"
+        ], function (
+          Map, ArcGISDynamicMapServiceLayer, ImageParameters) {
+
+            map = new Map("mapDiv", {
+                sliderOrientation: "horizontal"
+            });
+
+            var imageParameters = new ImageParameters();
+            imageParameters.format = "jpeg"; //set the image type to PNG24, note default is PNG8.
+
+            //Takes a URL to a non cached map service.
+            var dynamicMapServiceLayer = new ArcGISDynamicMapServiceLayer("http://esri705.gis.local:6080/arcgis/rest/services/IncidentAnalysis/IncidentAnalysis_base/MapServer", {
+                "opacity": 0.5,
+                "imageParameters": imageParameters
+            });
+
+            map.addLayer(dynamicMapServiceLayer);
+        });
+    </script>
+</head>
+<body>
+    <div id="mapDiv">
+
+    </div>
+</body>
+</html>

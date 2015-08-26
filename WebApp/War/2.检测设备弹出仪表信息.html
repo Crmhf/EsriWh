@@ -1,0 +1,149 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title></title>
+
+    <link rel="stylesheet" href="http://esri705.gis.local:8080/arcgis_js_api/library/3.10/3.10/js/dojo/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="http://esri705.gis.local:8080/arcgis_js_api/library/3.10/3.10/js/esri/css/esri.css">
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            margin: 0;
+            padding: 0;
+        }
+
+        #dashboard {
+            color: #fff;
+            font-family: arial;
+            height: auto;
+            overflow: hidden;
+            padding: 5px;
+            position: absolute;
+            right: 30px;
+            text-align: center;
+            top: 30px;
+            width: 300px;
+            z-index: 40;
+            -moz-box-shadow: 0 0 5px #888;
+            -webkit-box-shadow: 0 0 5px #888;
+            box-shadow: 0 0 5px #888;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            border: 1px solid #fff;
+        }
+
+        #dashboardWidgets {
+            background: #fff;
+            color: #888;
+            margin: 0 auto;
+            text-align: left;
+        }
+    </style>
+
+    <script>var dojoConfig = { parseOnLoad: true };</script>
+    <script src="http://esri705.gis.local:8080/arcgis_js_api/library/3.10/3.10/init.js"></script>
+    <script>
+
+        var map;
+        require([
+          "dijit/layout/BorderContainer",
+          "dijit/layout/ContentPane",
+          "esri/dijit/Gauge",
+          "esri/map",
+          "esri/layers/ArcGISTiledMapServiceLayer",
+          "esri/layers/FeatureLayer",
+          "dojo/domReady!"
+        ], function (
+            BorderContainer,
+            ContentPane,
+            Gauge,
+          Map,
+          ArcGISTiledMapServiceLayer,
+            FeatureLayer) {
+            map = new Map("mapDiv", {
+                center: [70.5, 30.5],
+                zoom: 15
+            });
+            //Takes a URL to a cached map service.
+            var tiledMapServiceLayer = new ArcGISTiledMapServiceLayer("http://esri705.gis.local:6080/arcgis/rest/services/IncidentAnalysis/IncidentAnalysis_baseTiled/MapServer", {
+                "opacity": 0.5
+            });
+            map.addLayer(tiledMapServiceLayer);
+
+            // add the states layer as a feature layer
+            var featuresUrl = "http://esri705.gis.local:6080/arcgis/rest/services/IncidentAnalysis/IncidentAnalysis_AllIncident/MapServer/0";
+            var fl = new esri.layers.FeatureLayer(featuresUrl, {
+                "id": "mac",
+                "mode": esri.layers.FeatureLayer.MODE_ONDEMAND,
+                "outFields": ["OBJECTID", "title", "weapon","injured"]
+            });
+            dojo.connect(fl, "onLoad", createGauge);
+            map.addLayer(fl);
+        });
+
+        function createGauge(fl) {
+
+
+            // create JSON and pass it to the Gauge ctor
+            var gaugeParams = {
+                "caption": "仪表盘显示测试.",
+                "color": "#c0c",
+                "dataField": "injured", // 用于显示到当前仪表盘里面的字段
+                "dataFormat": "value",
+                "dataLabelField": "title", // 仪表盘的标签
+                "layer": fl,
+                "maxDataValue": 10, //
+                "noFeatureLabel": "No name",
+                "title": "以下通过一个字段来展示受伤人数",
+                "unitLabel": " 人数"
+            }
+            gauge = new esri.dijit.Gauge(gaugeParams, "gaugeDiv");
+            gauge.startup();
+
+            // set up mouse over highlighting
+          //  var hGraphics = new esri.layers.GraphicsLayer({ "id": "highlights" });
+            var hGraphics = new esri.layers.GraphicsLayer();
+            map.addLayer(hGraphics);
+
+            var highlight = new esri.symbol.SimpleMarkerSymbol()
+              .setColor(gaugeParams.color).setSize(12);
+
+            dojo.connect(fl, "onMouseOver", function (e) {
+                hGraphics.clear();
+                hGraphics.add(
+                  new esri.Graphic(e.graphic.geometry, highlight)
+                );
+            });
+        }
+    </script>
+</head>
+
+<body class="tundra">
+    <div data-dojo-type="dijit.layout.BorderContainer"
+         data-dojo-props="design:'headline',gutters:false"
+         style="width: 100%; height: 100%; margin: 0;">
+        <div id="mapDiv"
+             data-dojo-type="dijit.layout.ContentPane"
+             data-dojo-props="region:'center'">
+
+            <div id="dashboard">
+                Dashboard
+                <div id="dashboardWidgets">
+                    <div id="gaugeDiv"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
